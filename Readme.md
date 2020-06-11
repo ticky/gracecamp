@@ -11,7 +11,7 @@ This currently patches the Basecamp Mac app only, Windows support is not include
   - TODO: Automate this
 3. Mount the downloaded DMG file, and copy `Basecamp 3.app` into the `source` directory within this repository
   - TODO: Automate this
-4. Run `yarn extract && yarn patch` to apply the patches to a copy of the extracted resources
+4. Run `yarn setup` to extract resources from the app, and apply the patches to a copy of the extracted resources
 
 At this point, you have the original Basecamp app source in the "app.asar.unpacked" directory, and the patched version in the "app.asar" directory. You can make edits within the "app.asar" directory.
 
