@@ -18,3 +18,57 @@ diff --unified --recursive ./app.asar.unpacked/main/application.js ./app.asar/ma
    app.on("window-all-closed", function() {
      return app.quit();
    });
+diff --unified --recursive ./app.asar.unpacked/renderer/bridge/url-bar.js ./app.asar/renderer/bridge/url-bar.js
+--- ./app.asar.unpacked/renderer/bridge/url-bar.js	2020-06-11 12:29:55.000000000 -0700
++++ ./app.asar/renderer/bridge/url-bar.js	2020-06-11 14:54:19.000000000 -0700
+@@ -1,17 +1 @@
+-(function() {
+-  var ipcRenderer;
+-
+-  ({ipcRenderer} = require("electron"));
+-
+-  addEventListener("keydown", function({key, altKey, ctrlKey, metaKey}) {
+-    if (key === "Shift" && !(altKey || ctrlKey || metaKey)) {
+-      ipcRenderer.sendToHost("url-bar:activate");
+-      return addEventListener("keyup", function() {
+-        return ipcRenderer.sendToHost("url-bar:deactivate");
+-      }, {
+-        once: true
+-      });
+-    }
+-  });
+-
+-}).call(this);
++/* Gracecamp patch: always show the url bar */
+diff --unified --recursive ./app.asar.unpacked/renderer/css/url-bar.css ./app.asar/renderer/css/url-bar.css
+--- ./app.asar.unpacked/renderer/css/url-bar.css	2020-06-11 12:29:55.000000000 -0700
++++ ./app.asar/renderer/css/url-bar.css	2020-06-11 14:49:10.000000000 -0700
+@@ -20,6 +20,7 @@
+   opacity: 0;
+ }
+ 
+-url-bar:not(:empty).active {
++/* Gracecamp patch: actually show the url bar */
++url-bar:not(:empty) {
+   opacity: 1;
+ }
+diff --unified --recursive ./app.asar.unpacked/renderer/elements/url-bar.js ./app.asar/renderer/elements/url-bar.js
+--- ./app.asar.unpacked/renderer/elements/url-bar.js	2020-06-11 12:29:55.000000000 -0700
++++ ./app.asar/renderer/elements/url-bar.js	2020-06-11 14:54:21.000000000 -0700
+@@ -10,13 +10,10 @@
+     }
+   }
+ 
+-  activate() {
+-    this.classList.add("active")
+-  }
++  /* Gracecamp patch: always show the url bar */
++  activate() {}
+ 
+-  deactivate() {
+-    this.classList.remove("active")
+-  }
++  deactivate() {}
+ 
+   set url(url = "") {
+     this.textContent = url
