@@ -1,0 +1,20 @@
+diff --unified --recursive ./app.asar.unpacked/main/application.js ./app.asar/main/application.js
+--- ./app.asar.unpacked/main/application.js	2020-06-11 12:29:55.000000000 -0700
++++ ./app.asar/main/application.js	2020-06-11 12:30:24.000000000 -0700
+@@ -161,6 +161,16 @@
+     return typeof basecamp !== "undefined" && basecamp !== null ? basecamp.isQuitting = true : void 0;
+   });
+ 
++  // Gracecamp patch: Accept open-url events on macOS
++  // This allows, when combined with Choosy (https://www.choosyosx.com)
++  // Basecamp 3.app to be configured as a global handler for Basecamp URLs
++  app.on("open-url", function(event, url) {
++    if (basecamp) {
++      event.preventDefault();
++      return basecamp.dispatch("location:request-navigation", {url});
++    }
++  });
++
+   app.on("window-all-closed", function() {
+     return app.quit();
+   });

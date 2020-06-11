@@ -1,0 +1,18 @@
+{
+  "name": "gracecamp",
+  "version": "0.0.1",
+  "author": "Jessica Stokes <hello@jessicastokes.net>",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "setup": "yarn download; yarn extract && yarn patch",
+    "download": "echo 'Download not yet implemented; download and extract the app first'; exit 1",
+    "extract": "script/extract.sh",
+    "diff": "script/diff.sh",
+    "patch": "script/patch.sh",
+    "build": "script/build.sh"
+  },
+  "devDependencies": {
+    "asar": "^3.0.3"
+  }
+}
